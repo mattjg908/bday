@@ -11,6 +11,13 @@ Run formatter from VIM
 Run Credo from VIM
 - :! clear && mix credo %
 
+Examine generators in iex
+- iex -S mix
+- ExUnit.start()
+- c "test/bday/csv_test.exs"
+- :proper_gen.sample(Bday.CsvTest.field())
+
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
