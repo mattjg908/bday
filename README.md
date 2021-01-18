@@ -16,7 +16,11 @@ Examine generators in iex
 - ExUnit.start()
 - c "test/bday/csv_test.exs"
 - :proper_gen.sample(Bday.CsvTest.field())
+or
+- :proper_gen.pick(Bday.CsvTest.field())
 
+Examine PropEr types in iex
+- :proper_gen.pick(:proper_types.vector(2, :proper_types.integer()))
 
 ## Installation
 
