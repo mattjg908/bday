@@ -1,7 +1,13 @@
 defmodule Bday.CsvTest do
   use ExUnit.Case, async: true
   use PropCheck
-#  doctest Bday.Csv
+  doctest Bday.Csv
+
+  property "roundtrip encoding/decoding" do
+    forall maps <- csv_source() do
+        maps == Csv.decode(Csv.encode(maps))
+    end
+  end
 
   def field() do
     oneof([unquoted_text(), quotable_text()])
@@ -39,8 +45,8 @@ defmodule Bday.CsvTest do
 
   def csv_source() do
     let size <- pos_integer() do
-      let keys <- header(size) do
-        list(entry(size, keys))
+      let keys <- header(size + 1) do
+        list(entry(size + 1, keys))
       end
     end
   end
