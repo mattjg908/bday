@@ -56,9 +56,12 @@ defmodule Bday.Csv do
 
   defp decode_name(~s|"| <> rest), do: decode_quoted(rest)
   defp decode_name(string), do: decode_unquoted(string)
+
   defp decode_field(~s|"| <> rest), do: decode_quoted(rest)
   defp decode_field(string), do: decode_unquoted(string)
+
   defp decode_quoted(string), do: decode_quoted(string, "")
+
   defp decode_quoted(~s|"|, acc), do: {:done, acc, ""}
   defp decode_quoted(~s|"\r\n| <> rest, acc), do: {:done, acc, rest}
   defp decode_quoted(~s|",| <> rest, acc), do: {:ok, acc, rest}
@@ -72,6 +75,7 @@ defmodule Bday.Csv do
   end
 
   defp decode_unquoted(string), do: decode_unquoted(string, "")
+
   defp decode_unquoted("", acc), do: {:done, acc, ""}
   defp decode_unquoted("\r\n" <> rest, acc), do: {:done, acc, rest}
   defp decode_unquoted("," <> rest, acc), do: {:ok, acc, rest}

@@ -3,9 +3,17 @@ defmodule Bday.CsvTest do
   use PropCheck
   doctest Bday.Csv
 
+  alias Bday.Csv
+
+  ## Unit Tests ##
+  test "one column CSV files are inherently ambiguous" do
+    assert "\r\n\r\n" == Csv.encode([%{"" => ""}, %{"" => ""}])
+    assert [%{"" => ""}] == Csv.decode("\r\n\r\n")
+  end
+
   property "roundtrip encoding/decoding" do
     forall maps <- csv_source() do
-        maps == Csv.decode(Csv.encode(maps))
+      maps == Csv.decode(Csv.encode(maps))
     end
   end
 
