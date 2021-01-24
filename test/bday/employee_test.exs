@@ -6,12 +6,23 @@ defmodule Bday.EmployeeTest do
   alias Bday.BinaryGenerator
   alias Bday.Employee
 
-
   property "check that leading space is fixed" do
     forall map <- raw_employee_map() do
       emp = Employee.adapt_csv_result_shim(map)
       strs = Enum.filter(Map.keys(emp) ++ Map.values(emp), &is_binary/1)
       Enum.all?(strs, fn s -> String.first(s) != " " end)
+    end
+  end
+
+  property "check that the date is formatted right" do
+    forall map <- raw_employee_map() do
+      case Employee.adapt_csv_result_shim(map) do
+        %{"date_of_birth" => %Date{}} ->
+          true
+
+        _ ->
+          false
+      end
     end
   end
 
