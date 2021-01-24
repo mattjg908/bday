@@ -15,9 +15,9 @@ Examine generators in iex
 - iex -S mix
 - ExUnit.start()
 - c "test/bday/csv_test.exs"
-- :proper_gen.sample(Bday.CsvTest.field())
+- :proper_gen.sample(Bday.BinaryGenerator.field())
 or
-- :proper_gen.pick(Bday.CsvTest.field())
+- :proper_gen.pick(Bday.BinaryGenerator.field())
 
 Examine PropEr types in iex
 - :proper_gen.pick(:proper_types.vector(2, :proper_types.integer()))

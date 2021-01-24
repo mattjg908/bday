@@ -3,8 +3,7 @@ defmodule Bday.EmployeeTest do
   use PropCheck
   doctest Bday.Employee
 
-  Code.load_file("test/bday/csv_test.exs")
-  alias Bday.CsvTest
+  alias Bday.BinaryGenerator
   alias Bday.Employee
 
 
@@ -18,7 +17,7 @@ defmodule Bday.EmployeeTest do
 
   defp raw_employee_map() do
     let proplist <- [
-          {"last_name", CsvTest.field()},
+          {"last_name", BinaryGenerator.field()},
           {" first_name", whitespaced_text()},
           {" date_of_birth", text_date()},
           {" email", whitespaced_text()}
@@ -28,7 +27,7 @@ defmodule Bday.EmployeeTest do
   end
 
   defp whitespaced_text() do
-    let(txt <- CsvTest.field(), do: " " <> txt)
+    let(txt <- BinaryGenerator.field(), do: " " <> txt)
   end
 
   defp text_date() do
