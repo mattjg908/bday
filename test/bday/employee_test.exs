@@ -4,6 +4,7 @@ defmodule Bday.EmployeeTest do
   doctest Bday.Employee
 
   alias Bday.BinaryGenerator
+  alias Bday.Csv
   alias Bday.Employee
 
   property "check that leading space is fixed" do
@@ -50,9 +51,9 @@ defmodule Bday.EmployeeTest do
   defp raw_employee_map() do
     let proplist <- [
           {"last_name", BinaryGenerator.field()},
-          {"first_name", whitespaced_text()},
-          {"date_of_birth", text_date()},
-          {"email", whitespaced_text()}
+          {" first_name", whitespaced_text()},
+          {" date_of_birth", text_date()},
+          {" email", whitespaced_text()}
         ] do
       Map.new(proplist)
     end
