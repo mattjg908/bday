@@ -26,12 +26,33 @@ defmodule Bday.EmployeeTest do
     end
   end
 
+  property "check access through the handle" do
+    forall maps <- non_empty(list(raw_employee_map())) do
+      handle =
+        maps
+        |> Csv.encode()
+        |> Employee.from_csv()
+
+      partial = Employee.filter_birthday(handle, ~D[1900-01-01])
+      list = Employee.fetch(partial)
+      # check for absence of crash
+      for x <- list do
+        Employee.first_name(x)
+        Employee.last_name(x)
+        Employee.email(x)
+        Employee.date_of_birth(x)
+      end
+
+      true
+    end
+  end
+
   defp raw_employee_map() do
     let proplist <- [
           {"last_name", BinaryGenerator.field()},
-          {" first_name", whitespaced_text()},
-          {" date_of_birth", text_date()},
-          {" email", whitespaced_text()}
+          {"first_name", whitespaced_text()},
+          {"date_of_birth", text_date()},
+          {"email", whitespaced_text()}
         ] do
       Map.new(proplist)
     end
