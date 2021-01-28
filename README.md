@@ -27,6 +27,9 @@ Run emailer script
 Note: Be sure one of the users in the csv has a birthday today in order to see
 any output
 
+Check test coverage metrics
+- mix test --cover
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
