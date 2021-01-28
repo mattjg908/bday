@@ -22,6 +22,11 @@ or
 Examine PropEr types in iex
 - :proper_gen.pick(:proper_types.vector(2, :proper_types.integer()))
 
+Run emailer script
+- mix run -e 'Bday.run("priv/db.csv")'
+Note: Be sure one of the users in the csv has a birthday today in order to see
+any output
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
