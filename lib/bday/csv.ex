@@ -64,6 +64,7 @@ defmodule Bday.Csv do
 
   defp decode_quoted(~s|"|, acc), do: {:done, acc, ""}
   defp decode_quoted(~s|"\r\n| <> rest, acc), do: {:done, acc, rest}
+  defp decode_quoted(~s|"\n| <> rest, acc), do: {:done, acc, rest}
   defp decode_quoted(~s|",| <> rest, acc), do: {:ok, acc, rest}
 
   defp decode_quoted(~s|""| <> rest, acc) do
@@ -78,6 +79,7 @@ defmodule Bday.Csv do
 
   defp decode_unquoted("", acc), do: {:done, acc, ""}
   defp decode_unquoted("\r\n" <> rest, acc), do: {:done, acc, rest}
+  defp decode_unquoted("\n" <> rest, acc), do: {:done, acc, rest}
   defp decode_unquoted("," <> rest, acc), do: {:ok, acc, rest}
 
   defp decode_unquoted(<<char>> <> rest, acc) do
