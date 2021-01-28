@@ -2,6 +2,7 @@ defmodule Bday.MailTplTest do
   use ExUnit.Case
   use PropCheck
   alias Bday.MailTpl, as: MailTpl
+  alias Bday.BinaryGenerator
 
   property "email template has first name" do
     forall employee <- employee_map() do
@@ -14,10 +15,10 @@ defmodule Bday.MailTplTest do
 
   defp employee_map() do
     let proplist <- [
-          {"last_name", non_empty(CsvTest.field())},
-          {"first_name", non_empty(CsvTest.field())},
+          {"last_name", non_empty(BinaryGenerator.field())},
+          {"first_name", non_empty(BinaryGenerator.field())},
           {"date_of_birth", date()},
-          {"email", non_empty(CsvTest.field())}
+          {"email", non_empty(BinaryGenerator.field())}
         ] do
       Enum.reduce(proplist, %{}, fn {k, v}, m -> Map.put(m, k, v) end)
     end
